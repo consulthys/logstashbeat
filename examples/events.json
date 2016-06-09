@@ -1,0 +1,14 @@
+{
+  "@timestamp": "2016-06-09T10:56:27.534Z",
+  "beat": {
+    "hostname": "iMac.local",
+    "name": "iMac.local"
+  },
+  "counter": 3,
+  "events": {
+    "filtered": 10,
+    "in": 10,
+    "out": 10
+  },
+  "type": "events"
+}
