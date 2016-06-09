@@ -1,0 +1,19 @@
+################### Logstashbeat Configuration Example #########################
+
+############################# Logstashbeat ######################################
+
+logstashbeat:
+  # Defines how often an event is sent to the output
+  period: 10s
+
+  # List of URLs to Logstash.
+  # Defaults to ["http://127.0.0.1:9600"].
+  # Note: Do not use trailing slash
+  urls:
+    - http://127.0.0.1:9600
+
+  # Statistics to collect
+  stats:
+    events: true
+    jvm: true
+    process: true
