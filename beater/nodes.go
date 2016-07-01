@@ -12,6 +12,7 @@ import (
 const NODE_EVENTS_STATS = "/_node/stats/events"
 const NODE_JVM_STATS = "/_node/stats/jvm"
 const NODE_PROCESS_STATS = "/_node/stats/process"
+const NODE_MEM_STATS = "/_node/stats/mem"
 
 type EventsStats struct {
     Events struct {
@@ -41,6 +42,40 @@ type ProcessStats struct {
         Mem struct {
             Total_virtual_in_bytes uint64 `json:"total_virtual_in_bytes"`
         } `json:"mem"`
+    }
+}
+
+type MemStats struct {
+    Mem struct {
+        Heap_used_in_bytes int64 `json:"heap_used_in_bytes"`
+        Heap_used_percent int64 `json:"heap_used_percent"`
+        Heap_committed_in_bytes  int64 `json:"heap_committed_in_bytes"`
+        Heap_max_in_bytes  int64 `json:"heap_max_in_bytes"`
+        Non_heap_used_in_bytes  int64 `json:"non_heap_used_in_bytes"`
+        Non_heap_committed_in_bytes  int64 `json:"non_heap_committed_in_bytes"`
+        Pools struct {
+            Survivor struct {
+                Peak_used_in_bytes uint64 `json:"peak_used_in_bytes"`
+                Used_in_bytes uint64 `json:"used_in_bytes"`
+                Peak_max_in_bytes uint64 `json:"peak_max_in_bytes"`
+                Max_in_bytes uint64 `json:"max_in_bytes"`
+                Committed_in_bytes uint64 `json:"committed_in_bytes"`
+            } `json:"survivor"`
+            Old struct {
+                Peak_used_in_bytes uint64 `json:"peak_used_in_bytes"`
+                Used_in_bytes uint64 `json:"used_in_bytes"`
+                Peak_max_in_bytes uint64 `json:"peak_max_in_bytes"`
+                Max_in_bytes uint64 `json:"max_in_bytes"`
+                Committed_in_bytes uint64 `json:"committed_in_bytes"`
+            } `json:"old"`
+            Young struct {
+                Peak_used_in_bytes uint64 `json:"peak_used_in_bytes"`
+                Used_in_bytes uint64 `json:"used_in_bytes"`
+                Peak_max_in_bytes uint64 `json:"peak_max_in_bytes"`
+                Max_in_bytes uint64 `json:"max_in_bytes"`
+                Committed_in_bytes uint64 `json:"committed_in_bytes"`
+            } `json:"young"`
+        } `json:"pools"`
     }
 }
 
@@ -111,6 +146,31 @@ func (bt *Logstashbeat) GetProcessStats(u url.URL) (*ProcessStats, error) {
     }
 
     stats := &ProcessStats{}
+    err = json.Unmarshal([]byte(body), &stats)
+    if err != nil {
+        return nil, err
+    }
+
+    return stats, nil
+}
+
+func (bt *Logstashbeat) GetMemStats(u url.URL) (*MemStats, error) {
+    res, err := http.Get(strings.TrimSuffix(u.String(), "/") + NODE_MEM_STATS)
+    if err != nil {
+        return nil, err
+    }
+    defer res.Body.Close()
+
+    if res.StatusCode != 200 {
+        return nil, fmt.Errorf("HTTP%s", res.Status)
+    }
+
+    body, err := ioutil.ReadAll(res.Body)
+    if err != nil {
+        return nil, err
+    }
+
+    stats := &MemStats{}
     err = json.Unmarshal([]byte(body), &stats)
     if err != nil {
         return nil, err

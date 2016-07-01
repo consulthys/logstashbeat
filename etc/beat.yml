@@ -17,3 +17,4 @@ logstashbeat:
     events: true
     jvm: true
     process: true
+    mem: true

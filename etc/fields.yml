@@ -98,9 +98,95 @@ process:
       - name: mem.total_virtual_in_bytes
         description: >
           The amount of virtual memory (in bytes)
+mem:
+  fields:
+    - name: counter
+      type: integer
+      required: true
+      description: >
+        The sequence number of the sample
+    - name: heap_used_in_bytes
+      type: integer
+      description: >
+        The heap usage (in bytes)
+    - name: heap_used_percent
+      type: integer
+      description: >
+        The heap usage (in percent)
+    - name: heap_committed_in_bytes
+      type: integer
+      description: >
+        The size of memory committed to the heap (in bytes)
+    - name: heap_max_in_bytes
+      type: integer
+      description: >
+        The heap max usage (in bytes)
+    - name: non_heap_used_in_bytes
+      type: integer
+      description: >
+        The non-heap usage (in bytes)
+    - name: non_heap_committed_in_bytes
+      type: integer
+      description: >
+        The size of memory committed to non-heap (in bytes)
+    - type: group
+      name: pools.survivor
+      fields:
+      - name: pools.survivor.peak_used_in_bytes
+        description: >
+          The peak usage of the survivor pool (in bytes)
+      - name: pools.survivor.used_in_bytes
+        description: >
+          The usage of the survivor pool (in bytes)
+      - name: pools.survivor.peak_max_in_bytes
+        description: >
+          The peak max usage of the survivor pool (in bytes)
+      - name: pools.survivor.max_in_bytes
+        description: >
+          The max usage of the survivor pool (in bytes)
+      - name: pools.survivor.committed_in_bytes
+        description: >
+          The size of the committed memory for the survivor pool (in bytes)
+    - type: old
+      name: pools.old
+      fields:
+      - name: pools.old.peak_used_in_bytes
+        description: >
+          The peak usage of the old pool (in bytes)
+      - name: pools.old.used_in_bytes
+        description: >
+          The usage of the old pool (in bytes)
+      - name: pools.old.peak_max_in_bytes
+        description: >
+          The peak max usage of the old pool (in bytes)
+      - name: pools.old.max_in_bytes
+        description: >
+          The max usage of the old pool (in bytes)
+      - name: pools.old.committed_in_bytes
+        description: >
+          The size of the committed memory for the old pool (in bytes)
+    - type: group
+      name: pools.young
+      fields:
+      - name: pools.young.peak_used_in_bytes
+        description: >
+          The peak usage of the young pool (in bytes)
+      - name: pools.young.used_in_bytes
+        description: >
+          The usage of the young pool (in bytes)
+      - name: pools.young.peak_max_in_bytes
+        description: >
+          The peak max usage of the young pool (in bytes)
+      - name: pools.young.max_in_bytes
+        description: >
+          The max usage of the young pool (in bytes)
+      - name: pools.young.committed_in_bytes
+        description: >
+          The size of the committed memory for the young pool (in bytes)
 
 sections:
   - ["env", "Common"]
   - ["events", "Events"]
   - ["jvm", "JVM"]
   - ["process", "Process"]
+  - ["mem", "Memory"]

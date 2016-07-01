@@ -28,6 +28,7 @@ type Logstashbeat struct {
     eventsStats  bool
     jvmStats     bool
     processStats bool
+    memStats     bool
 }
 
 // Creates beater
@@ -83,7 +84,13 @@ func (bt *Logstashbeat) Config(b *beat.Beat) error {
         bt.processStats = true
     }
 
-    if !bt.eventsStats && !bt.jvmStats && !bt.processStats {
+    if bt.beatConfig.Logstashbeat.Stats.Mem != nil {
+        bt.memStats = *bt.beatConfig.Logstashbeat.Stats.Mem
+    } else {
+        bt.memStats = true
+    }
+
+    if !bt.eventsStats && !bt.jvmStats && !bt.processStats && !bt.memStats {
         return errors.New("Invalid statistics configuration")
     }
 
@@ -111,6 +118,7 @@ func (bt *Logstashbeat) Setup(b *beat.Beat) error {
     logp.Debug(selector, "Events statistics %t\n", bt.eventsStats)
     logp.Debug(selector, "JVM statistics %t\n", bt.jvmStats)
     logp.Debug(selector, "Process statistics %t\n", bt.processStats)
+    logp.Debug(selector, "Memory statistics %t\n", bt.memStats)
 
     return nil
 }
@@ -194,6 +202,28 @@ func (bt *Logstashbeat) Run(b *beat.Beat) error {
 
                         bt.client.PublishEvent(event)
                         logp.Info("Logstash process stats sent")
+                        counter++
+                    }
+                }
+
+                if bt.memStats {
+                    logp.Debug(selector, "Memory stats for url: %v", u)
+                    mem_stats, err := bt.GetMemStats(*u)
+
+                    if err != nil {
+                        logp.Err("Error reading memory stats: %v", err)
+                    } else {
+                        logp.Debug(selector, "Memory stats detail: %+v", mem_stats)
+
+                        event := common.MapStr{
+                            "@timestamp": common.Time(time.Now()),
+                            "type":       "mem",
+                            "counter":    counter,
+                            "mem": mem_stats.Mem,
+                        }
+
+                        bt.client.PublishEvent(event)
+                        logp.Info("Logstash memory stats sent")
                         counter++
                     }
                 }
