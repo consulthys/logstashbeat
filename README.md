@@ -2,7 +2,9 @@
 
 Welcome to Logstashbeat.
 
-**Important Note:** this plugin will only work with Logstash 5.0.0-alpha1 and later as the Logstash Monitoring API (listening on port 5600) is only [available since that version](https://www.elastic.co/guide/en/logstash/5.0/alpha1.html).
+**Important Notes:** 
+ 1. this plugin will only work with Logstash 5.0.0-alpha1 and later as the Logstash Monitoring API (listening on port 5600) is only [available since that version](https://www.elastic.co/guide/en/logstash/5.0/alpha1.html).
+ 2. this plugin will only work with Logstash 5.0.0-alpha4 and later if you enable the `memory` and/or the `pipeline` flags in the `logstashbeat.yml` configuration file.
 
 Ensure that this folder is at the following location:
 `${GOPATH}/github.com/consulthys`
