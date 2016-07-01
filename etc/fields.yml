@@ -259,6 +259,51 @@ pipeline:
         description: >
           The amount of time spent in the output plugin (in milliseconds)
 
+hot_threads:
+  fields:
+    - name: counter
+      type: integer
+      required: true
+      description: >
+        The sequence number of the sample
+    - type: group
+      name: hot_threads
+      fields:
+      - name: hot_threads.host
+        description: >
+          The hostname as returned by the operating system on which the Beat is
+          running.
+      - name: hot_threads.http_address
+        description: >
+          The HTTP address on which the hot threads have been requested
+      - name: hot_threads.version
+        description: >
+          The logstash version
+      - type: group
+        name: hot_threads.hot_threads
+        fields:
+        - name: hot_threads.hot_threads.time
+          description: >
+            The timestamp at which the hot threads were captured
+        - name: hot_threads.hot_threads.busiest_threads
+          description: >
+            The number of busiest threads that have been captured
+        - type: group
+          name: hot_threads.hot_threads.threads
+          fields:
+          - name: hot_threads.hot_threads.threads.name
+            description: >
+              The name of the captured hot thread
+          - name: hot_threads.hot_threads.threads.state
+            description: >
+              The state of the captured hot thread
+          - name: hot_threads.hot_threads.threads.percent_of_cpu_time
+            description: >
+              The CPU time of the hot thread (in percent)
+          - name: hot_threads.hot_threads.threads.traces
+            description: >
+              The stack trace of the hot thread
+
 sections:
   - ["env", "Common"]
   - ["events", "Events"]
@@ -266,3 +311,4 @@ sections:
   - ["process", "Process"]
   - ["mem", "Memory"]
   - ["pipeline", "Pipeline"]
+  - ["hot_threads", "Hot threads"]
