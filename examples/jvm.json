@@ -1,0 +1,15 @@
+{
+  "@timestamp": "2016-06-09T10:56:27.534Z",
+  "beat": {
+    "hostname": "iMac.local",
+    "name": "iMac.local"
+  },
+  "counter": 3,
+  "jvm": {
+    "threads": {
+      "count": 21,
+      "peak_count": 23
+    }
+  },
+  "type": "jvm"
+}

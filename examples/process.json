@@ -1,0 +1,21 @@
+{
+  "@timestamp": "2016-06-09T10:56:27.534Z",
+  "beat": {
+    "hostname": "iMac.local",
+    "name": "iMac.local"
+  },
+  "counter": 3,
+  "process": {
+    "cpu": {
+      "percent": 0,
+      "total_in_millis": 44377821000
+    },
+    "max_file_descriptors": 10240,
+    "mem": {
+      "total_virtual_in_bytes": 5193240576
+    },
+    "open_file_descriptors": 59,
+    "peak_open_file_descriptors": 64
+  },
+  "type": "process"
+}

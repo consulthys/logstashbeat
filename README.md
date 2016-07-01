@@ -2,6 +2,8 @@
 
 Welcome to Logstashbeat.
 
+**Important Note:** this plugin will only work with Logstash 5.0.0-alpha1 and later as the Logstash Monitoring API (listening on port 5600) is only [available since that version](https://www.elastic.co/guide/en/logstash/5.0/alpha1.html).
+
 Ensure that this folder is at the following location:
 `${GOPATH}/github.com/consulthys`
 
