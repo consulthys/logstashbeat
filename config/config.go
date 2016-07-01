@@ -17,5 +17,6 @@ type LogstashbeatConfig struct {
 		JVM      *bool
 		Process  *bool
 		Mem 	 *bool
+		Pipeline *bool
 	}
 }

@@ -50,23 +50,23 @@ output:
     # Number of workers per Elasticsearch host.
     #worker: 1
 
-    # Optional index name. The default is "elasticbeat" and generates
-    # [elasticbeat-]YYYY.MM.DD keys.
-    #index: "elasticbeat"
+    # Optional index name. The default is "logstashbeat" and generates
+    # [logstashbeat-]YYYY.MM.DD keys.
+    #index: "logstashbeat"
 
     # A template is used to set the mapping in Elasticsearch
     # By default template loading is disabled and no template is loaded.
     # These settings can be adjusted to load your own template or overwrite existing ones
-    #template:
+    template:
 
-      # Template name. By default the template name is elasticbeat.
-      #name: "elasticbeat"
+      # Template name. By default the template name is logstashbeat.
+      name: "logstashbeat"
 
       # Path to template file
-      #path: "elasticbeat.template.json"
+      path: "etc/logstashbeat.template.json"
 
       # Overwrite existing template
-      #overwrite: false
+      overwrite: true
 
     # Optional HTTP Path
     #path: "/elasticsearch"
@@ -145,7 +145,7 @@ output:
 
     # Optional index name. The default index name is set to name of the beat
     # in all lowercase.
-    #index: elasticbeat
+    #index: logstashbeat
 
     # SOCKS5 proxy server URL
     #proxy_url: socks5://user:password@socks5-server:2233
@@ -180,10 +180,10 @@ output:
   ### File as output
   #file:
     # Path to the directory where to save the generated files. The option is mandatory.
-    #path: "/tmp/elasticbeat"
+    #path: "/tmp/logstashbeat"
 
-    # Name of the generated files. The default is `elasticbeat` and it generates files: `elasticbeat`, `elasticbeat.1`, `elasticbeat.2`, etc.
-    #filename: elasticbeat
+    # Name of the generated files. The default is `logstashbeat` and it generates files: `logstashbeat`, `logstashbeat.1`, `logstashbeat.2`, etc.
+    #filename: logstashbeat
 
     # Maximum size in kilobytes of each file. When this size is reached, the files are
     # rotated. The default value is 10240 kB.
@@ -272,10 +272,10 @@ logging:
   # To enable logging to files, to_files option has to be set to true
   files:
     # The directory where the log files will written to.
-    #path: /var/log/mybeat
+    #path: /var/log/logstashbeat
 
     # The name of the files where the logs are written to.
-    #name: mybeat
+    #name: logstashbeat
 
     # Configure log file size limit. If limit is reached, log file will be
     # automatically rotated

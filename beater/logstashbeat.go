@@ -17,18 +17,19 @@ import (
 const selector = "logstashbeat"
 
 type Logstashbeat struct {
-    period       time.Duration
-    urls         []*url.URL
+    period          time.Duration
+    urls            []*url.URL
 
-    beatConfig   *config.Config
+    beatConfig      *config.Config
 
-    done         chan struct{}
-    client       publisher.Client
+    done            chan struct{}
+    client          publisher.Client
 
-    eventsStats  bool
-    jvmStats     bool
-    processStats bool
-    memStats     bool
+    eventsStats     bool
+    jvmStats        bool
+    processStats    bool
+    memStats        bool
+    pipelineStats   bool
 }
 
 // Creates beater
@@ -90,7 +91,13 @@ func (bt *Logstashbeat) Config(b *beat.Beat) error {
         bt.memStats = true
     }
 
-    if !bt.eventsStats && !bt.jvmStats && !bt.processStats && !bt.memStats {
+    if bt.beatConfig.Logstashbeat.Stats.Pipeline != nil {
+        bt.pipelineStats = *bt.beatConfig.Logstashbeat.Stats.Pipeline
+    } else {
+        bt.pipelineStats = true
+    }
+
+    if !bt.eventsStats && !bt.jvmStats && !bt.processStats && !bt.memStats && !bt.pipelineStats {
         return errors.New("Invalid statistics configuration")
     }
 
@@ -119,6 +126,7 @@ func (bt *Logstashbeat) Setup(b *beat.Beat) error {
     logp.Debug(selector, "JVM statistics %t\n", bt.jvmStats)
     logp.Debug(selector, "Process statistics %t\n", bt.processStats)
     logp.Debug(selector, "Memory statistics %t\n", bt.memStats)
+    logp.Debug(selector, "Pipeline statistics %t\n", bt.pipelineStats)
 
     return nil
 }
@@ -224,6 +232,28 @@ func (bt *Logstashbeat) Run(b *beat.Beat) error {
 
                         bt.client.PublishEvent(event)
                         logp.Info("Logstash memory stats sent")
+                        counter++
+                    }
+                }
+
+                if bt.pipelineStats {
+                    logp.Debug(selector, "Pipeline stats for url: %v", u)
+                    pipeline_stats, err := bt.GetPipelineStats(*u)
+
+                    if err != nil {
+                        logp.Err("Error reading pipeline stats: %v", err)
+                    } else {
+                        logp.Debug(selector, "Pipeline stats detail: %+v", pipeline_stats)
+
+                        event := common.MapStr{
+                            "@timestamp": common.Time(time.Now()),
+                            "type":       "pipeline",
+                            "counter":    counter,
+                            "pipeline": pipeline_stats.Pipeline,
+                        }
+
+                        bt.client.PublishEvent(event)
+                        logp.Info("Logstash pipeline stats sent")
                         counter++
                     }
                 }

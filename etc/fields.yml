@@ -98,6 +98,7 @@ process:
       - name: mem.total_virtual_in_bytes
         description: >
           The amount of virtual memory (in bytes)
+
 mem:
   fields:
     - name: counter
@@ -184,9 +185,84 @@ mem:
         description: >
           The size of the committed memory for the young pool (in bytes)
 
+pipeline:
+  fields:
+    - name: counter
+      type: integer
+      required: true
+      description: >
+        The sequence number of the sample
+    - type: group
+      name: pipeline.events
+      fields:
+      - name: pipeline.events.in
+        description: >
+          The number of events that went through the input plugins
+      - name: pipeline.events.filtered
+        description: >
+          The number of events that went through the filter plugins
+      - name: pipeline.events.out
+        description: >
+          The number of events that went through the output plugins
+    - type: group
+      name: pipeline.pipeline.inputs
+      fields:
+      - name: pipeline.pipeline.inputs.id
+        description: >
+          The id of the input plugin
+      - name: pipeline.pipeline.inputs.name
+        description: >
+          The name of the input plugin
+      - name: pipeline.pipeline.inputs.events.in
+        description: >
+          The number of events that went through the input plugin
+      - name: pipeline.pipeline.inputs.events.out
+        description: >
+          The number of events that went through the input plugin
+      - name: pipeline.pipeline.inputs.events.duration_in_millis
+        description: >
+          The amount of time spent in the input plugin (in milliseconds)
+    - type: group
+      name: pipeline.pipeline.filters
+      fields:
+      - name: pipeline.pipeline.filters.id
+        description: >
+          The id of the filter plugin
+      - name: pipeline.pipeline.filters.name
+        description: >
+          The name of the filter plugin
+      - name: pipeline.pipeline.filters.events.in
+        description: >
+          The number of events that went through the filter plugin
+      - name: pipeline.pipeline.filters.events.out
+        description: >
+          The number of events that went through the filter plugin
+      - name: pipeline.pipeline.filters.events.duration_in_millis
+        description: >
+          The amount of time spent in the filter plugin (in milliseconds)
+    - type: group
+      name: pipeline.pipeline.outputs
+      fields:
+      - name: pipeline.pipeline.outputs.id
+        description: >
+          The id of the output plugin
+      - name: pipeline.pipeline.outputs.name
+        description: >
+          The name of the output plugin
+      - name: pipeline.pipeline.outputs.events.in
+        description: >
+          The number of events that went through the output plugin
+      - name: pipeline.pipeline.outputs.events.out
+        description: >
+          The number of events that went through the output plugin
+      - name: pipeline.pipeline.outputs.events.duration_in_millis
+        description: >
+          The amount of time spent in the output plugin (in milliseconds)
+
 sections:
   - ["env", "Common"]
   - ["events", "Events"]
   - ["jvm", "JVM"]
   - ["process", "Process"]
   - ["mem", "Memory"]
+  - ["pipeline", "Pipeline"]

@@ -18,3 +18,4 @@ logstashbeat:
     jvm: true
     process: true
     mem: true
+    pipeline: true

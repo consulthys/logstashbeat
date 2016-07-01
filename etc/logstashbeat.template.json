@@ -1,0 +1,92 @@
+{
+  "template": "logstashbeat-*",
+  "settings": {
+    "index.refresh_interval": "5s"
+  },
+  "mappings": {
+    "pipeline": {
+      "properties": {
+        "pipeline": {
+          "properties": {
+            "pipeline": {
+              "properties": {
+                "inputs": {
+                  "type": "nested",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "events": {
+                      "properties": {
+                        "in": {
+                          "type": "long"
+                        },
+                        "duration_in_millis": {
+                          "type": "long"
+                        },
+                        "out": {
+                          "type": "long"
+                        }
+                      }
+                    }
+                  }
+                },
+                "filters": {
+                  "type": "nested",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "events": {
+                      "properties": {
+                        "in": {
+                          "type": "long"
+                        },
+                        "duration_in_millis": {
+                          "type": "long"
+                        },
+                        "out": {
+                          "type": "long"
+                        }
+                      }
+                    }
+                  }
+                },
+                "outputs": {
+                  "type": "nested",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "events": {
+                      "properties": {
+                        "in": {
+                          "type": "long"
+                        },
+                        "duration_in_millis": {
+                          "type": "long"
+                        },
+                        "out": {
+                          "type": "long"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
