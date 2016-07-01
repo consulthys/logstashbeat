@@ -4,6 +4,35 @@
     "index.refresh_interval": "5s"
   },
   "mappings": {
+    "hot_threads": {
+      "properties": {
+        "hot_threads": {
+          "properties": {
+            "hot_threads": {
+              "properties": {
+                "threads": {
+                  "type": "nested",
+                  "properties": {
+                    "percent_of_cpu_time": {
+                      "type": "double"
+                    },
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "traces": {
+                      "type": "text"
+                    },
+                    "state": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "pipeline": {
       "properties": {
         "pipeline": {
@@ -14,10 +43,10 @@
                   "type": "nested",
                   "properties": {
                     "name": {
-                      "type": "string"
+                      "type": "keyword"
                     },
                     "id": {
-                      "type": "string"
+                      "type": "keyword"
                     },
                     "events": {
                       "properties": {
@@ -38,10 +67,10 @@
                   "type": "nested",
                   "properties": {
                     "name": {
-                      "type": "string"
+                      "type": "keyword"
                     },
                     "id": {
-                      "type": "string"
+                      "type": "keyword"
                     },
                     "events": {
                       "properties": {
@@ -62,10 +91,10 @@
                   "type": "nested",
                   "properties": {
                     "name": {
-                      "type": "string"
+                      "type": "keyword"
                     },
                     "id": {
-                      "type": "string"
+                      "type": "keyword"
                     },
                     "events": {
                       "properties": {

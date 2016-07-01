@@ -25,6 +25,8 @@ type Logstashbeat struct {
     done            chan struct{}
     client          publisher.Client
 
+    hotThreads      int
+
     eventsStats     bool
     jvmStats        bool
     processStats    bool
@@ -67,6 +69,8 @@ func (bt *Logstashbeat) Config(b *beat.Beat) error {
         bt.urls[i] = u
     }
 
+    bt.hotThreads = bt.beatConfig.Logstashbeat.Hot_threads
+
     if bt.beatConfig.Logstashbeat.Stats.Events != nil {
         bt.eventsStats = *bt.beatConfig.Logstashbeat.Stats.Events
     } else {
@@ -97,7 +101,7 @@ func (bt *Logstashbeat) Config(b *beat.Beat) error {
         bt.pipelineStats = true
     }
 
-    if !bt.eventsStats && !bt.jvmStats && !bt.processStats && !bt.memStats && !bt.pipelineStats {
+    if bt.hotThreads == 0 && !bt.eventsStats && !bt.jvmStats && !bt.processStats && !bt.memStats && !bt.pipelineStats {
         return errors.New("Invalid statistics configuration")
     }
 
@@ -122,6 +126,7 @@ func (bt *Logstashbeat) Setup(b *beat.Beat) error {
     logp.Debug(selector, "Init logstashbeat")
     logp.Debug(selector, "Period %v\n", bt.period)
     logp.Debug(selector, "Watch %v", bt.urls)
+    logp.Debug(selector, "Capture %v hot threads\n", bt.hotThreads)
     logp.Debug(selector, "Events statistics %t\n", bt.eventsStats)
     logp.Debug(selector, "JVM statistics %t\n", bt.jvmStats)
     logp.Debug(selector, "Process statistics %t\n", bt.processStats)
@@ -147,6 +152,28 @@ func (bt *Logstashbeat) Run(b *beat.Beat) error {
                 }
 
                 timerStart := time.Now()
+
+                if bt.hotThreads > 0 {
+                    logp.Debug(selector, "Hot threads for url: %v", u)
+                    hot_threads, err := bt.GetHotThreads(*u, bt.hotThreads)
+
+                    if err != nil {
+                        logp.Err("Error retrieving hot threads: %v", err)
+                    } else {
+                        logp.Debug(selector, "Hot threads detail: %+v", hot_threads)
+
+                        event := common.MapStr{
+                            "@timestamp": common.Time(time.Now()),
+                            "type": "hot_threads",
+                            "counter": counter,
+                            "hot_threads": hot_threads,
+                        }
+
+                        bt.client.PublishEvent(event)
+                        logp.Info("Logstash hot threads sent")
+                        counter++
+                    }
+                }
 
                 if bt.eventsStats {
                     logp.Debug(selector, "Events stats for url: %v", u)

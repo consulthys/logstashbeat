@@ -12,6 +12,8 @@ type LogstashbeatConfig struct {
 
 	URLs []string
 
+	Hot_threads int `config:"hot_threads"`
+
 	Stats struct {
 		Events   *bool
 		JVM      *bool
