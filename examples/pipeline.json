@@ -1,38 +1,77 @@
 {
-  "@timestamp": "2016-08-10T06:18:02.224Z",
+  "@timestamp": "2016-08-10T07:33:03.550Z",
   "beat": {
     "hostname": "iMac.local",
     "name": "iMac.local"
   },
-  "counter": 25,
+  "counter": 28,
   "pipeline": {
     "events": {
-      "in": 42000,
-      "filtered": 42000,
-      "out": 42000
+      "filtered": 10,
+      "in": 10,
+      "out": 10
     },
     "plugins": {
       "filters": [
         {
           "events": {
-            "duration_in_millis": 1085,
-            "in": 42000,
-            "out": 42000
+            "duration_in_millis": 2,
+            "in": 10,
+            "out": 10
           },
-          "id": "mutate_521ffdc5-5f13-4ada-ac5a-5ab7c86fe9eb",
-          "name": "mutate"
+          "failures": 3,
+          "id": "grok_ba2e738b-33e9-4386-a9bc-5d6a98027229",
+          "matches": 7,
+          "name": "grok",
+          "patterns_per_field": {
+            "field2": 1
+          }
+        },
+        {
+          "events": {
+            "duration_in_millis": 7,
+            "in": 10,
+            "out": 10
+          },
+          "failures": 1,
+          "id": "grok_2277602f-7770-43cc-8181-3ac6f69c0bdf",
+          "matches": 9,
+          "name": "grok",
+          "patterns_per_field": {
+            "message": 1
+          }
+        },
+        {
+          "events": {
+            "duration_in_millis": 3,
+            "in": 10,
+            "out": 10
+          },
+          "id": "kv_825722fd-cfc2-472c-af81-b4735557387b",
+          "name": "kv"
+        },
+        {
+          "events": {
+            "duration_in_millis": 3,
+            "in": 10,
+            "out": 10
+          },
+          "formats": 1,
+          "id": "date_abe7507c-af08-48bb-ad98-7cb44ddcb656",
+          "matches": 9,
+          "name": "date"
         }
       ],
-      "inputs": [ ],
+      "inputs": [],
       "outputs": [
         {
           "events": {
-            "duration_in_millis": 7107,
-            "in": 42000,
-            "out": 42000
+            "duration_in_millis": 28,
+            "in": 10,
+            "out": 10
           },
-          "id": "csv_b801aacc-7ea4-44fd-b35e-1b775887e5df",
-          "name": "csv"
+          "id": "stdout_c52eea96-d883-422e-9ac4-9f8bb18c9558",
+          "name": "stdout"
         }
       ]
     }

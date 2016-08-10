@@ -66,8 +66,10 @@ type PipelineElementEvents struct {
 type PipelineEvents struct {
     Name string `json:"name"`
     Id string `json:"id"`
-    //Matches uint64 `json:"matches"`
-    //Failures uint64 `json:"failures"`
+    Matches uint64 `json:"matches,omitempty"`
+    Failures uint64 `json:"failures,omitempty"`
+    Formats uint64 `json:"formats,omitempty"`
+    PatternsPerField interface{} `json:"patterns_per_field,omitempty"`
     Events PipelineElementEvents `json:"events"`
 }
 
