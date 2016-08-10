@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2016-07-01T13:40:55.818Z",
+  "@timestamp": "2016-08-10T06:18:02.224Z",
   "beat": {
     "hostname": "iMac.local",
     "name": "iMac.local"
@@ -96,10 +96,10 @@
           ]
         }
       ],
-      "time": "2016-07-01T15:40:55+02:00"
+      "time": "2016-08-10T06:18:02.224Z"
     },
     "http_address": "127.0.0.1:9600",
-    "version": "5.0.0-alpha4"
+    "version": "5.0.0-alpha5"
   },
   "type": "hot_threads"
 }

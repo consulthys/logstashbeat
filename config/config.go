@@ -15,10 +15,8 @@ type LogstashbeatConfig struct {
 	Hot_threads int `config:"hot_threads"`
 
 	Stats struct {
-		Events   *bool
 		JVM      *bool
 		Process  *bool
-		Mem 	 *bool
 		Pipeline *bool
 	}
 }

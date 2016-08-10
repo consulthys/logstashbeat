@@ -27,10 +27,8 @@ type Logstashbeat struct {
 
     hotThreads      int
 
-    eventsStats     bool
     jvmStats        bool
     processStats    bool
-    memStats        bool
     pipelineStats   bool
 }
 
@@ -71,12 +69,6 @@ func (bt *Logstashbeat) Config(b *beat.Beat) error {
 
     bt.hotThreads = bt.beatConfig.Logstashbeat.Hot_threads
 
-    if bt.beatConfig.Logstashbeat.Stats.Events != nil {
-        bt.eventsStats = *bt.beatConfig.Logstashbeat.Stats.Events
-    } else {
-        bt.eventsStats = true
-    }
-
     if bt.beatConfig.Logstashbeat.Stats.JVM != nil {
         bt.jvmStats = *bt.beatConfig.Logstashbeat.Stats.JVM
     } else {
@@ -89,19 +81,13 @@ func (bt *Logstashbeat) Config(b *beat.Beat) error {
         bt.processStats = true
     }
 
-    if bt.beatConfig.Logstashbeat.Stats.Mem != nil {
-        bt.memStats = *bt.beatConfig.Logstashbeat.Stats.Mem
-    } else {
-        bt.memStats = true
-    }
-
     if bt.beatConfig.Logstashbeat.Stats.Pipeline != nil {
         bt.pipelineStats = *bt.beatConfig.Logstashbeat.Stats.Pipeline
     } else {
         bt.pipelineStats = true
     }
 
-    if bt.hotThreads == 0 && !bt.eventsStats && !bt.jvmStats && !bt.processStats && !bt.memStats && !bt.pipelineStats {
+    if bt.hotThreads == 0  && !bt.jvmStats && !bt.processStats && !bt.pipelineStats {
         return errors.New("Invalid statistics configuration")
     }
 
@@ -127,10 +113,8 @@ func (bt *Logstashbeat) Setup(b *beat.Beat) error {
     logp.Debug(selector, "Period %v\n", bt.period)
     logp.Debug(selector, "Watch %v", bt.urls)
     logp.Debug(selector, "Capture %v hot threads\n", bt.hotThreads)
-    logp.Debug(selector, "Events statistics %t\n", bt.eventsStats)
     logp.Debug(selector, "JVM statistics %t\n", bt.jvmStats)
     logp.Debug(selector, "Process statistics %t\n", bt.processStats)
-    logp.Debug(selector, "Memory statistics %t\n", bt.memStats)
     logp.Debug(selector, "Pipeline statistics %t\n", bt.pipelineStats)
 
     return nil
@@ -175,28 +159,6 @@ func (bt *Logstashbeat) Run(b *beat.Beat) error {
                     }
                 }
 
-                if bt.eventsStats {
-                    logp.Debug(selector, "Events stats for url: %v", u)
-                    events_stats, err := bt.GetEventsStats(*u)
-
-                    if err != nil {
-                        logp.Err("Error reading events stats: %v", err)
-                    } else {
-                        logp.Debug(selector, "Events stats detail: %+v", events_stats)
-
-                        event := common.MapStr{
-                            "@timestamp": common.Time(time.Now()),
-                            "type": "events",
-                            "counter": counter,
-                            "events": events_stats.Events,
-                        }
-
-                        bt.client.PublishEvent(event)
-                        logp.Info("Logstash events stats sent")
-                        counter++
-                    }
-                }
-
                 if bt.jvmStats {
                     logp.Debug(selector, "JVM stats for url: %v", u)
                     jvm_stats, err := bt.GetJvmStats(*u)
@@ -237,28 +199,6 @@ func (bt *Logstashbeat) Run(b *beat.Beat) error {
 
                         bt.client.PublishEvent(event)
                         logp.Info("Logstash process stats sent")
-                        counter++
-                    }
-                }
-
-                if bt.memStats {
-                    logp.Debug(selector, "Memory stats for url: %v", u)
-                    mem_stats, err := bt.GetMemStats(*u)
-
-                    if err != nil {
-                        logp.Err("Error reading memory stats: %v", err)
-                    } else {
-                        logp.Debug(selector, "Memory stats detail: %+v", mem_stats)
-
-                        event := common.MapStr{
-                            "@timestamp": common.Time(time.Now()),
-                            "type":       "mem",
-                            "counter":    counter,
-                            "mem": mem_stats.Mem,
-                        }
-
-                        bt.client.PublishEvent(event)
-                        logp.Info("Logstash memory stats sent")
                         counter++
                     }
                 }

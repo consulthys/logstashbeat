@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2016-07-01T12:18:34.028Z",
+  "@timestamp": "2016-08-10T06:18:02.224Z",
   "beat": {
     "hostname": "iMac.local",
     "name": "iMac.local"
@@ -11,7 +11,7 @@
       "filtered": 42000,
       "out": 42000
     },
-    "pipeline": {
+    "plugins": {
       "filters": [
         {
           "events": {

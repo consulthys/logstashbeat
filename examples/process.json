@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2016-06-09T10:56:27.534Z",
+  "@timestamp": "2016-08-10T06:18:02.231Z",
   "beat": {
     "hostname": "iMac.local",
     "name": "iMac.local"
@@ -14,7 +14,7 @@
     "mem": {
       "total_virtual_in_bytes": 5193240576
     },
-    "open_file_descriptors": 59,
+    "open_file_descriptors": 61,
     "peak_open_file_descriptors": 64
   },
   "type": "process"

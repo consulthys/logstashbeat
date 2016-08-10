@@ -37,7 +37,7 @@
       "properties": {
         "pipeline": {
           "properties": {
-            "pipeline": {
+            "plugins": {
               "properties": {
                 "inputs": {
                   "type": "nested",

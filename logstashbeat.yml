@@ -14,10 +14,8 @@ logstashbeat:
 
   # Statistics to collect
   stats:
-    events: true
     jvm: true
     process: true
-    mem: true
     pipeline: true
   hot_threads: 3
 
