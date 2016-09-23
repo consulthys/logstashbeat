@@ -1,11 +1,23 @@
 {
-  "@timestamp": "2016-08-10T06:18:02.224Z",
+  "@timestamp": "2016-09-23T04:47:07.096Z",
   "beat": {
     "hostname": "iMac.local",
     "name": "iMac.local"
   },
   "counter": 2,
   "jvm": {
+    "gc": {
+      "collectors": {
+        "new": {
+          "collection_count": 0,
+          "collection_time_in_millis": 0
+        },
+        "old": {
+          "collection_count": 2,
+          "collection_time_in_millis": 59
+        }
+      }
+    },
     "mem": {
       "heap_committed_in_bytes": 519045120,
       "heap_max_in_bytes": 2077753344,

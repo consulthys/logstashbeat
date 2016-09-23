@@ -21,6 +21,11 @@ type MemPool struct {
     Committed_in_bytes uint64 `json:"committed_in_bytes"`
 }
 
+type GcCollector struct {
+    CollectionTimeInMillis uint64 `json:"collection_time_in_millis"`
+    CollectionCount uint64 `json:"collection_count"`
+}
+
 type JvmStats struct {
     Jvm struct {
         Threads struct {
@@ -40,6 +45,12 @@ type JvmStats struct {
                 Young MemPool `json:"young"`
             } `json:"pools"`
         } `json:"mem"`
+        GC struct {
+            Collectors struct {
+                Old GcCollector `json:"old"`
+                New GcCollector `json:"new"`
+            } `json:"collectors"`
+        } `json:"gc"`
     }
 }
 type ProcessStats struct {
@@ -74,6 +85,7 @@ type PipelineEvents struct {
 }
 
 type Events struct {
+    Duration_in_millis uint64 `json:"duration_in_millis"`
     In uint64 `json:"in"`
     Filtered uint64 `json:"filtered"`
     Out uint64 `json:"out"`
@@ -87,6 +99,13 @@ type PipelineStats struct {
             Filters []*PipelineEvents `json:"filters"`
             Outputs []*PipelineEvents `json:"outputs"`
         } `json:"plugins"`
+        Reloads struct {
+            LastError string `json:"last_error"`
+            LastSuccessTimestamp string `json:"last_success_timestamp"`
+            LastFailureTimestamp string `json:"last_failure_timestamp"`
+            Successes uint64 `json:"successes"`
+            Failures uint64 `json:"failures"`
+        } `json:"reloads"`
     }
 }
 

@@ -1,5 +1,5 @@
 {
-  "@timestamp": "2016-08-10T06:18:02.224Z",
+  "@timestamp": "2016-09-23T04:47:07.079Z",
   "beat": {
     "hostname": "iMac.local",
     "name": "iMac.local"
@@ -8,11 +8,11 @@
   "hot_threads": {
     "host": "iMac.local",
     "hot_threads": {
-      "busiest_threads": 5,
+      "busiest_threads": 3,
       "threads": [
         {
           "name": "LogStash::Runner",
-          "percent_of_cpu_time": 0.23,
+          "percent_of_cpu_time": 1.02,
           "state": "timed_waiting",
           "traces": [
             "java.lang.Object.wait(Native Method)",
@@ -28,8 +28,8 @@
           ]
         },
         {
-          "name": "Ruby-0-Thread-11",
-          "percent_of_cpu_time": 0.08,
+          "name": "Ruby-0-Thread-10",
+          "percent_of_cpu_time": 0.09,
           "state": "timed_waiting",
           "traces": [
             "java.lang.Object.wait(Native Method)",
@@ -39,14 +39,14 @@
             "org.jruby.internal.runtime.methods.JavaMethod$JavaMethodN.call(JavaMethod.java:667)",
             "org.jruby.internal.runtime.methods.DynamicMethod.call(DynamicMethod.java:206)",
             "org.jruby.runtime.callsite.CachingCallSite.call(CachingCallSite.java:168)",
-            "rubyjit.Module$$stoppable_sleep_c19c1639527ca7d373b5093f339d26538f1c21ef1259475182.__file__(/usr/local/Cellar/logstash/5.0.0a4/vendor/bundle/jruby/1.9/gems/stud-0.0.22/lib/stud/interval.rb:84)",
-            "rubyjit.Module$$stoppable_sleep_c19c1639527ca7d373b5093f339d26538f1c21ef1259475182.__file__(/usr/local/Cellar/logstash/5.0.0a4/vendor/bundle/jruby/1.9/gems/stud-0.0.22/lib/stud/interval.rb)",
+            "rubyjit.Module$$stoppable_sleep_c19c1639527ca7d373b5093f339d26538f1c21ef1259475182.__file__(/usr/local/Cellar/logstash/logstash-5.0.0-beta1/vendor/bundle/jruby/1.9/gems/stud-0.0.22/lib/stud/interval.rb:84)",
+            "rubyjit.Module$$stoppable_sleep_c19c1639527ca7d373b5093f339d26538f1c21ef1259475182.__file__(/usr/local/Cellar/logstash/logstash-5.0.0-beta1/vendor/bundle/jruby/1.9/gems/stud-0.0.22/lib/stud/interval.rb)",
             "org.jruby.ast.executable.AbstractScript.__file__(AbstractScript.java:46)"
           ]
         },
         {
           "name": "Ruby-0-Thread-3",
-          "percent_of_cpu_time": 0.02,
+          "percent_of_cpu_time": 0.03,
           "state": "timed_waiting",
           "traces": [
             "java.lang.Object.wait(Native Method)",
@@ -60,46 +60,12 @@
             "org.jruby.ast.NewlineNode.interpret(NewlineNode.java:105)",
             "org.jruby.ast.IfNode.interpret(IfNode.java:116)"
           ]
-        },
-        {
-          "name": "[main]-pipeline-manager",
-          "percent_of_cpu_time": 0.02,
-          "state": "timed_waiting",
-          "traces": [
-            "java.lang.Object.wait(Native Method)",
-            "java.lang.Thread.join(Thread.java:1253)",
-            "org.jruby.internal.runtime.NativeThread.join(NativeThread.java:75)",
-            "org.jruby.RubyThread.join(RubyThread.java:697)",
-            "org.jruby.RubyThread$INVOKER$i$0$1$join.call(RubyThread$INVOKER$i$0$1$join.gen)",
-            "org.jruby.internal.runtime.methods.JavaMethod$JavaMethodN.call(JavaMethod.java:663)",
-            "org.jruby.internal.runtime.methods.DynamicMethod.call(DynamicMethod.java:198)",
-            "org.jruby.internal.runtime.methods.JavaMethod$JavaMethodN.call(JavaMethod.java:683)",
-            "org.jruby.runtime.callsite.CachingCallSite.cacheAndCall(CachingCallSite.java:286)",
-            "org.jruby.runtime.callsite.CachingCallSite.callBlock(CachingCallSite.java:81)"
-          ]
-        },
-        {
-          "name": "Api Webserver",
-          "percent_of_cpu_time": 0.01,
-          "state": "timed_waiting",
-          "traces": [
-            "java.lang.Object.wait(Native Method)",
-            "java.lang.Thread.join(Thread.java:1253)",
-            "org.jruby.internal.runtime.NativeThread.join(NativeThread.java:75)",
-            "org.jruby.RubyThread.join(RubyThread.java:697)",
-            "org.jruby.RubyThread$INVOKER$i$0$1$join.call(RubyThread$INVOKER$i$0$1$join.gen)",
-            "org.jruby.internal.runtime.methods.JavaMethod$JavaMethodN.call(JavaMethod.java:663)",
-            "org.jruby.internal.runtime.methods.DynamicMethod.call(DynamicMethod.java:198)",
-            "org.jruby.runtime.callsite.CachingCallSite.cacheAndCall(CachingCallSite.java:306)",
-            "org.jruby.runtime.callsite.CachingCallSite.call(CachingCallSite.java:136)",
-            "org.jruby.ast.CallNoArgNode.interpret(CallNoArgNode.java:60)"
-          ]
         }
       ],
-      "time": "2016-08-10T06:18:02.224Z"
+      "time": "2016-09-23T06:47:06+02:00"
     },
     "http_address": "127.0.0.1:9600",
-    "version": "5.0.0-alpha5"
+    "version": "5.0.0-beta1"
   },
   "type": "hot_threads"
 }
