@@ -3,11 +3,7 @@
 Welcome to Logstashbeat.
 
 **Important Notes:** 
- 1. this plugin will only work with Logstash 5.0.0-alpha1 and later as the Logstash Monitoring API (listening on port 5600) is only [available since that version](https://www.elastic.co/guide/en/logstash/5.0/alpha1.html).
- 2. this plugin will only work with Logstash 5.0.0-alpha5 and later if any of the following points holds true:
-
-   * you enable the `stats.pipeline` flag in the `logstashbeat.yml` configuration file.
-   * you specify a positive `hot_threads` number in the `logstashbeat.yml` configuration file.
+This plugin will only work with Logstash 5.0.0 later as the Logstash Monitoring API (listening on port 5600) is only [available since that version](https://www.elastic.co/guide/en/logstash/5.0/alpha1.html).
 
 Ensure that this folder is at the following location:
 `${GOPATH}/github.com/consulthys`
@@ -16,8 +12,7 @@ Ensure that this folder is at the following location:
 
 ### Requirements
 
-* [Golang](https://golang.org/dl/) 1.6
-* [Glide](https://github.com/Masterminds/glide) >= 0.10.0
+* [Golang](https://golang.org/dl/) 1.7.1
 
 ### Init Project
 To get running with Logstashbeat, run the following command:

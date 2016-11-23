@@ -3,13 +3,10 @@
 
 package config
 
+import "time"
+
 type Config struct {
-	Logstashbeat LogstashbeatConfig
-}
-
-type LogstashbeatConfig struct {
-	Period string `config:"period"`
-
+	Period time.Duration `config:"period"`
 	URLs []string
 
 	Hot_threads int `config:"hot_threads"`
@@ -19,4 +16,8 @@ type LogstashbeatConfig struct {
 		Process  *bool
 		Pipeline *bool
 	}
+}
+
+var DefaultConfig = Config{
+	Period: 1 * time.Second,
 }

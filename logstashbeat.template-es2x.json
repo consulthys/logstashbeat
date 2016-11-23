@@ -1,0 +1,121 @@
+{
+  "template": "logstashbeat-*",
+  "settings": {
+    "index.refresh_interval": "5s"
+  },
+  "mappings": {
+    "hot_threads": {
+      "properties": {
+        "hot_threads": {
+          "properties": {
+            "hot_threads": {
+              "properties": {
+                "threads": {
+                  "type": "nested",
+                  "properties": {
+                    "percent_of_cpu_time": {
+                      "type": "double"
+                    },
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "traces": {
+                      "type": "text"
+                    },
+                    "state": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "pipeline": {
+      "properties": {
+        "pipeline": {
+          "properties": {
+            "plugins": {
+              "properties": {
+                "inputs": {
+                  "type": "nested",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "id": {
+                      "type": "keyword"
+                    },
+                    "events": {
+                      "properties": {
+                        "in": {
+                          "type": "long"
+                        },
+                        "duration_in_millis": {
+                          "type": "long"
+                        },
+                        "out": {
+                          "type": "long"
+                        }
+                      }
+                    }
+                  }
+                },
+                "filters": {
+                  "type": "nested",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "id": {
+                      "type": "keyword"
+                    },
+                    "events": {
+                      "properties": {
+                        "in": {
+                          "type": "long"
+                        },
+                        "duration_in_millis": {
+                          "type": "long"
+                        },
+                        "out": {
+                          "type": "long"
+                        }
+                      }
+                    }
+                  }
+                },
+                "outputs": {
+                  "type": "nested",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "id": {
+                      "type": "keyword"
+                    },
+                    "events": {
+                      "properties": {
+                        "in": {
+                          "type": "long"
+                        },
+                        "duration_in_millis": {
+                          "type": "long"
+                        },
+                        "out": {
+                          "type": "long"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
